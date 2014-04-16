@@ -4,12 +4,12 @@ using System.Collections;
 public class StartSnake : MonoBehaviour {
 	public GameObject snake;
 	public GameObject food;
+	public GameObject wall;
 	// Use this for initialization
 	void Start () {
 		Instantiate (snake);
 		Instantiate (food);
-		Instantiate (food);
-
+		Instantiate (wall);
 
 	}
 	
