@@ -18,7 +18,7 @@ public class SnakeMovement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		ymax = 1000;
-		ymin=-1000;
+		ymin = -1000;
 		xmax = 1000;
 		xmin = -1000;
 	}
