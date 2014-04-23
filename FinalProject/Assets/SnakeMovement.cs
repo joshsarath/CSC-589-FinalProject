@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 public class SnakeMovement : MonoBehaviour {
 
@@ -15,94 +14,69 @@ public class SnakeMovement : MonoBehaviour {
 	private float xmax;
 	private float xmin;
 	private int lastKey;/*directional memory for collisions 1 is side to side, 0 is up down*/
-	private float counter;
-	public float timeDelay=.5f;
-	
-	
-	public Vector3 lastposition;
-	public List<GameObject> list;
-	public bool followed=false;
 
 	// Use this for initialization
 	void Start () {
-		counter = 0;
 		ymax = 1000;
 		ymin = -1000;
 		xmax = 1000;
 		xmin = -1000;
-		list = new List<GameObject> ();
-		//list.Add(GameObject.Find("Head(Clone)"));
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (this.name=="Head(Clone)"){
-			if (counter<=0){
-				if (Input.GetKey ("up")) {
-					if (transform.position.y<=ymax){
-						lastposition=transform.position;
-						counter=1;
-						yspeed=moveunit;
-						transform.position+=new Vector3(0,yspeed,0);
-						xspeed=0;
-						yspeed=0;
-						lastKey=0;
-						counter=timeDelay;
-						follow ();
-						//counter=timedelay;
-					}
-				}
-				if (Input.GetKey ("down")) {
-					if (transform.position.y>=ymin){
-						counter=1;
-						yspeed=moveunit;
-						transform.position-=new Vector3(0,yspeed,0);
-						xspeed=0;
-						yspeed=0;
-						lastKey=0;
-						counter=timeDelay;
-					}
-				}
-				if (Input.GetKey ("left")) {
-					if (transform.position.x>=xmin){
-						counter=1;
-						xspeed=moveunit;
-						transform.position-=new Vector3(xspeed,0,0);
-						xspeed=0;
-						yspeed=0;
-						lastKey=1;
-						counter=timeDelay;
-						//counter=timedelay;
-					}
-				}
-				if (Input.GetKey ("right")) {
-					if (transform.position.x<=xmax){
-						counter=1;
-						xspeed=moveunit;//sets speed to constant unit
-						transform.position+=new Vector3(xspeed,0,0);//changes position on new 1 directional vector3
-						xspeed=0;//resets speed to 0 so after key lifted no more movement
-						yspeed=0;
-						lastKey=1;
-						counter=timeDelay;
-					}
+		//if (counter<=0){
+			if (Input.GetKey ("up")) {
+				if (transform.position.y<=ymax){
+					yspeed=moveunit;
+					transform.position+=new Vector3(0,yspeed,0);
+					xspeed=0;
+					yspeed=0;
+					lastKey=0;
+					//counter=timedelay;
 				}
 			}
-				counter-=Time.deltaTime;
-				//Debug.Log (counter);
-		}
-		else{
-			lastposition=transform.position;
-		}
+			if (Input.GetKey ("down")) {
+				if (transform.position.y>=ymin){
+					yspeed=moveunit;
+					transform.position-=new Vector3(0,yspeed,0);
+					xspeed=0;
+					yspeed=0;
+					lastKey=0;
+					//counter=timedelay;
+				}
+			}
+			if (Input.GetKey ("left")) {
+				if (transform.position.x>=xmin){
+					xspeed=moveunit;
+					transform.position-=new Vector3(xspeed,0,0);
+					xspeed=0;
+					yspeed=0;
+					lastKey=1;
+					//counter=timedelay;
+				}
+			}
+			if (Input.GetKey ("right")) {
+				if (transform.position.x<=xmax){
+					xspeed=moveunit;//sets speed to constant unit
+					transform.position+=new Vector3(xspeed,0,0);//changes position on new 1 directional vector3
+					xspeed=0;//resets speed to 0 so after key lifted no more movement
+					yspeed=0;
+					lastKey=1;
+					//counter=timedelay;
+				}
+			}
+
+		//}
+		//counter-=Time.deltaTime;
+		//Debug.Log (counter);
 	}
 	void OnTriggerEnter(Collider other){
 
 		if (other.name == "Food(Clone)") {
 			//Debug.Log ("poop");
 			Destroy(other.gameObject);
-			GameObject instance;
-			instance = (GameObject) Instantiate(snakeSegment);
-			list.Add (instance);
-			//list.Add(instance.gameObject);
+			Instantiate(snakeSegment);
 			//transform.position=new Vector3((other.transform.position.x-.5f), transform.position.y,0);  
 			//Destroy (gameObject);
 		}
@@ -129,39 +103,5 @@ public class SnakeMovement : MonoBehaviour {
 		ymin=-1000;
 		xmax = 1000;
 		xmin = -1000;
-	}
-
-	void follow(){
-		/*int length = GameObject.FindGameObjectsWithTag ("Snake").Length;
-		Debug.Log (length);
-		GameObject[] array=new GameObject[length];
-		int i=0;
-		foreach (GameObject go in GameObject.FindGameObjectsWithTag("Snake")) {
-			array[i]=go.gameObject;
-			i++;
-		}
-		for (int j=1; j<=length; length++) {
-			SnakeMovement follow= array[j-1].gameObject.GetComponent<SnakeMovement>();
-			array[j].gameObject.transform.position=follow.lastposition;
-		}*/
-		/*Debug.Log (list.Count);
-		//foreach (GameObject go in GameObject.FindGameObjectsWithTag("Snake")) {
-			SnakeMovement go=GameObject.Find("Segment(Clone)").GetComponent<SnakeMovement>();	
-			if (go.followed==false){
-				go.followed=true;
-				list.Add(go.gameObject);
-			}
-		//}*/
-		/*for (int i=1; i<list.Count; i++) {
-			SnakeMovement follow=list[i].GetComponent<SnakeMovement>();
-			SnakeMovement tofollow=list[i-1].GetComponent<SnakeMovement>();
-			follow.lastposition=follow.gameObject.transform.position;
-			follow.gameObject.transform.position=tofollow.lastposition;
-		} */
-		for (int i=1; i<list.Count; i++){
-			SnakeMovement follow=list[i].GetComponent<SnakeMovement>();
-			SnakeMovement tofollow=list[i+1].GetComponent<SnakeMovement>();
-			tofollow.transform.position=follow.transform.position;
-		} 
 	}
 }
