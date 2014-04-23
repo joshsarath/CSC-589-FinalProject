@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class Follow : MonoBehaviour {
+	public bool followed;
 	public Vector3 lastposition;
+<<<<<<< HEAD
 	public Vector3 followposition;
 	public bool followed= false;
 	// Use this for initialization
@@ -11,11 +13,24 @@ public class Follow : MonoBehaviour {
 			Follow piece= GameObject.Find ("Head(Clone)").GetComponent<Follow>();
 			piece.followed=true;
 		}
+=======
+	private GameObject toFollow;
+	// Use this for initialization
+	void Start () {
+		//foreach (GameObject go in GameObject.FindGameObjectsWithTag("Snake")) {
+			//Debug.Log ("count");
+			Follow segment= GameObject.Find ("Segment(Clone)").GetComponent<Follow>();
+			if (segment.followed==false){
+				toFollow=GameObject.Find(segment.name);
+			}		
+		//}
+>>>>>>> parent of 17bd830... follow
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
+<<<<<<< HEAD
 		if (this.name == "Head(Clone)") {
 			if (lastposition != transform.position) {
 				lastposition=transform.position;
@@ -56,6 +71,14 @@ public class Follow : MonoBehaviour {
 			piece= GameObject.Find("Head(Clone)").GetComponent<Follow>();
 
 		}
+=======
+		/*lastposition =new Vector3(transform.position.x,transform.position.y,transform.position.z);
+		//Debug.Log (toFollow.name);
+		toFollow.transform.position = this.lastposition;
+		if (Input.GetKey("space")){
+			Debug.Log (toFollow.name);
+		}*/
+>>>>>>> parent of 17bd830... follow
 
 	}
 	

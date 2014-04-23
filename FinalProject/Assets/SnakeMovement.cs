@@ -107,8 +107,8 @@ public class SnakeMovement : MonoBehaviour {
 			//Destroy (gameObject);
 		}
 		if (other.name=="Segment(Clone)"){
-			//Destroy (other.gameObject);
-			//Destroy (this.gameObject);
+			Destroy (other.gameObject);
+			Destroy (this.gameObject);
 		}
 		if (other.name == "Wall(Clone)") {
 			/* stop movememt entirely 
