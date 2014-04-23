@@ -17,6 +17,8 @@ public class SnakeMovement : MonoBehaviour {
 	private int lastKey;/*directional memory for collisions 1 is side to side, 0 is up down*/
 	private float counter;
 	public float timeDelay=.5f;
+	
+	
 	public Vector3 lastposition;
 	public List<GameObject> list;
 	public bool followed=false;
@@ -98,7 +100,8 @@ public class SnakeMovement : MonoBehaviour {
 			//Debug.Log ("poop");
 			Destroy(other.gameObject);
 			GameObject instance;
-			Instantiate(snakeSegment);
+			instance = (GameObject) Instantiate(snakeSegment);
+			list.Add (instance);
 			//list.Add(instance.gameObject);
 			//transform.position=new Vector3((other.transform.position.x-.5f), transform.position.y,0);  
 			//Destroy (gameObject);
@@ -141,19 +144,24 @@ public class SnakeMovement : MonoBehaviour {
 			SnakeMovement follow= array[j-1].gameObject.GetComponent<SnakeMovement>();
 			array[j].gameObject.transform.position=follow.lastposition;
 		}*/
-		Debug.Log (list.Count);
-		foreach (GameObject go in GameObject.FindGameObjectsWithTag("Snake")) {
-			SnakeMovement piece=go.GetComponent<SnakeMovement>();	
-			if (piece.followed==false){
-				piece.followed=true;
-				list.Add(piece.gameObject);
+		/*Debug.Log (list.Count);
+		//foreach (GameObject go in GameObject.FindGameObjectsWithTag("Snake")) {
+			SnakeMovement go=GameObject.Find("Segment(Clone)").GetComponent<SnakeMovement>();	
+			if (go.followed==false){
+				go.followed=true;
+				list.Add(go.gameObject);
 			}
-		}
-		for (int i=1; i<list.Count; i++) {
+		//}*/
+		/*for (int i=1; i<list.Count; i++) {
 			SnakeMovement follow=list[i].GetComponent<SnakeMovement>();
 			SnakeMovement tofollow=list[i-1].GetComponent<SnakeMovement>();
 			follow.lastposition=follow.gameObject.transform.position;
 			follow.gameObject.transform.position=tofollow.lastposition;
-		}  
+		} */
+		for (int i=1; i<list.Count; i++){
+			SnakeMovement follow=list[i].GetComponent<SnakeMovement>();
+			SnakeMovement tofollow=list[i+1].GetComponent<SnakeMovement>();
+			tofollow.transform.position=follow.transform.position;
+		} 
 	}
 }
