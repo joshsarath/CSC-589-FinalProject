@@ -19,6 +19,7 @@ public class SnakeMovement : MonoBehaviour {
 	public float timeDelay=.5f;
 	public Vector3 lastposition;
 	public List<GameObject> list;
+	public bool followed=false;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +29,7 @@ public class SnakeMovement : MonoBehaviour {
 		xmax = 1000;
 		xmin = -1000;
 		list = new List<GameObject> ();
-		list.Add(GameObject.Find("Head(Clone)"));
+		//list.Add(GameObject.Find("Head(Clone)"));
 	}
 	
 	// Update is called once per frame
@@ -97,8 +98,8 @@ public class SnakeMovement : MonoBehaviour {
 			//Debug.Log ("poop");
 			Destroy(other.gameObject);
 			GameObject instance;
-			instance=Instantiate(snakeSegment) as GameObject;
-			list.Add(instance.gameObject);
+			Instantiate(snakeSegment);
+			//list.Add(instance.gameObject);
 			//transform.position=new Vector3((other.transform.position.x-.5f), transform.position.y,0);  
 			//Destroy (gameObject);
 		}
@@ -140,10 +141,19 @@ public class SnakeMovement : MonoBehaviour {
 			SnakeMovement follow= array[j-1].gameObject.GetComponent<SnakeMovement>();
 			array[j].gameObject.transform.position=follow.lastposition;
 		}*/
-		for (int i=1; i<=list.Count; i++) {
+		Debug.Log (list.Count);
+		foreach (GameObject go in GameObject.FindGameObjectsWithTag("Snake")) {
+			SnakeMovement piece=go.GetComponent<SnakeMovement>();	
+			if (piece.followed==false){
+				piece.followed=true;
+				list.Add(piece.gameObject);
+			}
+		}
+		for (int i=1; i<list.Count; i++) {
 			SnakeMovement follow=list[i].GetComponent<SnakeMovement>();
 			SnakeMovement tofollow=list[i-1].GetComponent<SnakeMovement>();
-			follow.transform.position=tofollow.lastposition;
+			follow.lastposition=follow.gameObject.transform.position;
+			follow.gameObject.transform.position=tofollow.lastposition;
 		}  
 	}
 }
