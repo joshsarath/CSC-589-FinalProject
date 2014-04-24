@@ -26,6 +26,7 @@ public class SnakeMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (this.name=="Head(Clone)"){
 			if (counter<=0){
 				if (Input.GetKey ("up")) {
@@ -123,6 +124,49 @@ public class SnakeMovement : MonoBehaviour {
 >>>>>>> FETCH_HEAD
 				}
 			}
+=======
+		//if (counter<=0){
+			if (Input.GetKey ("up")) {
+				if (transform.position.y<=ymax){
+					yspeed=moveunit;
+					transform.position+=new Vector3(0,yspeed,0);
+					xspeed=0;
+					yspeed=0;
+					lastKey=0;
+					//counter=timedelay;
+				}
+			}
+			if (Input.GetKey ("down")) {
+				if (transform.position.y>=ymin){
+					yspeed=moveunit;
+					transform.position-=new Vector3(0,yspeed,0);
+					xspeed=0;
+					yspeed=0;
+					lastKey=0;
+					//counter=timedelay;
+				}
+			}
+			if (Input.GetKey ("left")) {
+				if (transform.position.x>=xmin){
+					xspeed=moveunit;
+					transform.position-=new Vector3(xspeed,0,0);
+					xspeed=0;
+					yspeed=0;
+					lastKey=1;
+					//counter=timedelay;
+				}
+			}
+			if (Input.GetKey ("right")) {
+				if (transform.position.x<=xmax){
+					xspeed=moveunit;//sets speed to constant unit
+					transform.position+=new Vector3(xspeed,0,0);//changes position on new 1 directional vector3
+					xspeed=0;//resets speed to 0 so after key lifted no more movement
+					yspeed=0;
+					lastKey=1;
+					//counter=timedelay;
+				}
+			}
+>>>>>>> FETCH_HEAD
 
 		//}
 		//counter-=Time.deltaTime;
@@ -162,6 +206,7 @@ public class SnakeMovement : MonoBehaviour {
 		xmin = -1000;
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	void follow(){
 		/*int length = GameObject.FindGameObjectsWithTag ("Snake").Length;
@@ -188,6 +233,8 @@ public class SnakeMovement : MonoBehaviour {
 			Debug.Log (list[1].name);
 		}
 	}
+=======
+>>>>>>> FETCH_HEAD
 =======
 >>>>>>> FETCH_HEAD
 }
