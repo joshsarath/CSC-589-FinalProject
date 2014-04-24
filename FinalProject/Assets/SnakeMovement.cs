@@ -37,21 +37,24 @@ public class SnakeMovement : MonoBehaviour {
 			if (counter<=0){
 				if (Input.GetKey ("up")) {
 					if (transform.position.y<=ymax){
-						lastposition=transform.position;
+
+						//lastposition=transform.position;
 						counter=1;
+						follow ();
 						yspeed=moveunit;
 						transform.position+=new Vector3(0,yspeed,0);
 						xspeed=0;
 						yspeed=0;
 						lastKey=0;
 						counter=timeDelay;
-						follow ();
+
 						//counter=timedelay;
 					}
 				}
 				if (Input.GetKey ("down")) {
 					if (transform.position.y>=ymin){
 						counter=1;
+						follow ();
 						yspeed=moveunit;
 						transform.position-=new Vector3(0,yspeed,0);
 						xspeed=0;
@@ -63,6 +66,7 @@ public class SnakeMovement : MonoBehaviour {
 				if (Input.GetKey ("left")) {
 					if (transform.position.x>=xmin){
 						counter=1;
+						follow ();
 						xspeed=moveunit;
 						transform.position-=new Vector3(xspeed,0,0);
 						xspeed=0;
@@ -75,6 +79,7 @@ public class SnakeMovement : MonoBehaviour {
 				if (Input.GetKey ("right")) {
 					if (transform.position.x<=xmax){
 						counter=1;
+						follow ();
 						xspeed=moveunit;//sets speed to constant unit
 						transform.position+=new Vector3(xspeed,0,0);//changes position on new 1 directional vector3
 						xspeed=0;//resets speed to 0 so after key lifted no more movement
@@ -140,10 +145,16 @@ public class SnakeMovement : MonoBehaviour {
 			SnakeMovement follow= array[j-1].gameObject.GetComponent<SnakeMovement>();
 			array[j].gameObject.transform.position=follow.lastposition;
 		}*/
-		for (int i=1; i<=list.Count; i++) {
-			SnakeMovement follow=list[i].GetComponent<SnakeMovement>();
-			SnakeMovement tofollow=list[i-1].GetComponent<SnakeMovement>();
+		/*for (int i=1; i<=list.Count; i++) {
+			SnakeMovement follow=(SnakeMovement) list[i].GetComponent<SnakeMovement>();
+			SnakeMovement tofollow=(SnakeMovement)list[i-1].GetComponent<SnakeMovement>();
 			follow.transform.position=tofollow.lastposition;
-		}  
+		}*/
+		for (int i=1; i<list.Count;i++){
+			SnakeMovement piece = list[i-1].gameObject.GetComponent<SnakeMovement> ();
+			piece.lastposition = piece.transform.position;
+			list[i].transform.position = piece.lastposition;
+			Debug.Log (list[1].name);
+		}
 	}
 }

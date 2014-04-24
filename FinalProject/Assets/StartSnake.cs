@@ -10,6 +10,7 @@ public class StartSnake : MonoBehaviour {
 		Instantiate (snake);
 		Instantiate (food);
 		Instantiate (wall);
+		Instantiate (food, new Vector3 (-2, -2, 0), Quaternion.identity);
 
 	}
 	
