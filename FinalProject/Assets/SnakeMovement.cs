@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 public class SnakeMovement : MonoBehaviour {
 
@@ -18,7 +17,6 @@ public class SnakeMovement : MonoBehaviour {
 	private float counter;
 	public float timeDelay=.5f;
 	public Vector3 lastposition;
-	public List<GameObject> list;
 
 	// Use this for initialization
 	void Start () {
@@ -27,8 +25,6 @@ public class SnakeMovement : MonoBehaviour {
 		ymin = -1000;
 		xmax = 1000;
 		xmin = -1000;
-		list = new List<GameObject> ();
-		list.Add(GameObject.Find("Head(Clone)"));
 	}
 	
 	// Update is called once per frame
@@ -87,18 +83,13 @@ public class SnakeMovement : MonoBehaviour {
 				counter-=Time.deltaTime;
 				//Debug.Log (counter);
 		}
-		else{
-			lastposition=transform.position;
-		}
 	}
 	void OnTriggerEnter(Collider other){
 
 		if (other.name == "Food(Clone)") {
 			//Debug.Log ("poop");
 			Destroy(other.gameObject);
-			GameObject instance;
-			instance=Instantiate(snakeSegment) as GameObject;
-			list.Add(instance.gameObject);
+			Instantiate(snakeSegment);
 			//transform.position=new Vector3((other.transform.position.x-.5f), transform.position.y,0);  
 			//Destroy (gameObject);
 		}
@@ -140,10 +131,5 @@ public class SnakeMovement : MonoBehaviour {
 			SnakeMovement follow= array[j-1].gameObject.GetComponent<SnakeMovement>();
 			array[j].gameObject.transform.position=follow.lastposition;
 		}*/
-		for (int i=1; i<=list.Count; i++) {
-			SnakeMovement follow=list[i].GetComponent<SnakeMovement>();
-			SnakeMovement tofollow=list[i-1].GetComponent<SnakeMovement>();
-			follow.transform.position=tofollow.lastposition;
-		}  
 	}
 }
