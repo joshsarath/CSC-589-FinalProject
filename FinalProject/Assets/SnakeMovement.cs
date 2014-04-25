@@ -150,11 +150,14 @@ public class SnakeMovement : MonoBehaviour {
 			SnakeMovement tofollow=(SnakeMovement)list[i-1].GetComponent<SnakeMovement>();
 			follow.transform.position=tofollow.lastposition;
 		}*/
-		for (int i=1; i<list.Count;i++){
+		int i = 1;
+		while (i<list.Count){
 			SnakeMovement piece = list[i-1].gameObject.GetComponent<SnakeMovement> ();
 			piece.lastposition = piece.transform.position;
 			list[i].transform.position = piece.lastposition;
-			Debug.Log (list[1].name);
+			piece=null;
+			Debug.Log (list.Count);
+			i++;
 		}
 	}
 }

@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/StartSnake.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/SnakeMovement.cs">
     <Files>
-      <File FileName="Assets/SnakeMovement.cs" Line="128" Column="23" />
-      <File FileName="Assets/StartSnake.cs" Line="13" Column="68" />
+      <File FileName="Assets/SnakeMovement.cs" Line="160" Column="8" />
+      <File FileName="Assets/StartSnake.cs" Line="29" Column="52" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
