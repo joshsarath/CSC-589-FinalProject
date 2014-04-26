@@ -108,11 +108,8 @@ public class SnakeMovement : MonoBehaviour {
 			instance=Instantiate(snakeSegment) as GameObject;
 			//Instantiate(snakeSegment);
 			//GameObject instance= GameObject.Find ("Segment(Clone)");
-			SnakeMovement test= instance.GetComponent<SnakeMovement>();
-			if (test.followed==false){
-				list.Add(instance);
-				test.followed=true;
-			}
+			list.Add(instance);
+				
 			//transform.position=new Vector3((other.transform.position.x-.5f), transform.position.y,0);  
 			//Destroy (gameObject);
 		}
@@ -164,8 +161,8 @@ public class SnakeMovement : MonoBehaviour {
 			SnakeMovement piece = list[i-1].gameObject.GetComponent<SnakeMovement> ();
 			piece.lastposition = piece.transform.position;
 			list[i].transform.position = piece.lastposition;
-			piece=null;
-			Debug.Log (list.Count);
+			//piece=null;
+			Debug.Log(list[i].transform.position);
 			i++;
 		}
 	}
