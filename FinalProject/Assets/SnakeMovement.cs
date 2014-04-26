@@ -19,6 +19,7 @@ public class SnakeMovement : MonoBehaviour {
 	public float timeDelay=.5f;
 	public Vector3 lastposition;
 	public List<GameObject> list;
+	public bool followed=false;
 
 	// Use this for initialization
 	void Start () {
@@ -29,8 +30,10 @@ public class SnakeMovement : MonoBehaviour {
 		xmin = -1000;
 		list = new List<GameObject> ();
 		list.Add(GameObject.Find("Head(Clone)"));
+		if (this.name =="Head(Clone)"){
+			followed=true;	
+		}
 	}
-	
 	// Update is called once per frame
 	void Update () {
 		if (this.name=="Head(Clone)"){
@@ -103,7 +106,13 @@ public class SnakeMovement : MonoBehaviour {
 			Destroy(other.gameObject);
 			GameObject instance;
 			instance=Instantiate(snakeSegment) as GameObject;
-			list.Add(instance.gameObject);
+			//Instantiate(snakeSegment);
+			//GameObject instance= GameObject.Find ("Segment(Clone)");
+			SnakeMovement test= instance.GetComponent<SnakeMovement>();
+			if (test.followed==false){
+				list.Add(instance);
+				test.followed=true;
+			}
 			//transform.position=new Vector3((other.transform.position.x-.5f), transform.position.y,0);  
 			//Destroy (gameObject);
 		}
