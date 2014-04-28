@@ -20,6 +20,7 @@ public class SnakeMovement : MonoBehaviour {
 	public Vector3 lastposition;
 	public List<GameObject> list;
 	public bool followed=false;
+	public StartSnake game;
 
 	// Use this for initialization
 	void Start () {
@@ -33,6 +34,8 @@ public class SnakeMovement : MonoBehaviour {
 		if (this.name =="Head(Clone)"){
 			followed=true;	
 		}
+		game= GameObject.Find ("Main Camera").gameObject.GetComponent<StartSnake> ();
+
 	}
 	// Update is called once per frame
 	void Update () {
@@ -43,13 +46,14 @@ public class SnakeMovement : MonoBehaviour {
 
 						//lastposition=transform.position;
 						counter=1;
-						follow ();
+
 						yspeed=moveunit;
 						transform.position+=new Vector3(0,yspeed,0);
 						xspeed=0;
 						yspeed=0;
 						lastKey=0;
 						counter=timeDelay;
+						follow ();
 
 						//counter=timedelay;
 					}
@@ -57,38 +61,41 @@ public class SnakeMovement : MonoBehaviour {
 				if (Input.GetKey ("down")) {
 					if (transform.position.y>=ymin){
 						counter=1;
-						follow ();
+
 						yspeed=moveunit;
 						transform.position-=new Vector3(0,yspeed,0);
 						xspeed=0;
 						yspeed=0;
 						lastKey=0;
 						counter=timeDelay;
+						follow ();
 					}
 				}
 				if (Input.GetKey ("left")) {
 					if (transform.position.x>=xmin){
 						counter=1;
-						follow ();
+					
 						xspeed=moveunit;
 						transform.position-=new Vector3(xspeed,0,0);
 						xspeed=0;
 						yspeed=0;
 						lastKey=1;
 						counter=timeDelay;
-						//counter=timedelay;
+						follow ();
+
 					}
 				}
 				if (Input.GetKey ("right")) {
 					if (transform.position.x<=xmax){
 						counter=1;
-						follow ();
+					
 						xspeed=moveunit;//sets speed to constant unit
 						transform.position+=new Vector3(xspeed,0,0);//changes position on new 1 directional vector3
 						xspeed=0;//resets speed to 0 so after key lifted no more movement
 						yspeed=0;
 						lastKey=1;
 						counter=timeDelay;
+						follow ();
 					}
 				}
 			}
@@ -109,6 +116,7 @@ public class SnakeMovement : MonoBehaviour {
 			//Instantiate(snakeSegment);
 			//GameObject instance= GameObject.Find ("Segment(Clone)");
 			list.Add(instance);
+			game.score+=1;
 				
 			//transform.position=new Vector3((other.transform.position.x-.5f), transform.position.y,0);  
 			//Destroy (gameObject);
@@ -157,13 +165,16 @@ public class SnakeMovement : MonoBehaviour {
 			follow.transform.position=tofollow.lastposition;
 		}*/
 		int i = 1;
+		SnakeMovement piece;
 		while (i<list.Count){
-			SnakeMovement piece = list[i-1].gameObject.GetComponent<SnakeMovement> ();
-			piece.lastposition = piece.transform.position;
+			piece = list[i-1].gameObject.GetComponent<SnakeMovement> ();
 			list[i].transform.position = piece.lastposition;
+			piece.lastposition = piece.transform.position;
+
 			//piece=null;
-			Debug.Log(list[i].transform.position);
+			Debug.Log(i);
 			i++;
 		}
 	}
+
 }
