@@ -39,5 +39,6 @@
 'Assets/Follow.cs'
 'Assets/SnakeMovement.cs'
 'Assets/StartSnake.cs'
+'Assets/UpDetector.cs'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Runtime.Serialization.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Xml.Linq.dll'
