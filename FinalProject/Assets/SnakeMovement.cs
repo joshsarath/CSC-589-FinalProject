@@ -21,16 +21,11 @@ public class SnakeMovement : MonoBehaviour {
 	public List<GameObject> list;
 	public bool followed=false;
 	public StartSnake game;
-	public UpDetector upmove;
-	public DownDetector downmove;
-	public RightDetector rightmove;
-	public LeftDetector leftmove;
-
 
 	// Use this for initialization
 	void Start () {
 		counter = 0;
-		ymax = 1000;;
+		ymax = 1000;
 		ymin = -1000;
 		xmax = 1000;
 		xmin = -1000;
@@ -40,10 +35,6 @@ public class SnakeMovement : MonoBehaviour {
 			followed=true;	
 		}
 		game= GameObject.Find ("Main Camera").gameObject.GetComponent<StartSnake> ();
-		upmove = GameObject.Find ("Up").gameObject.GetComponent<UpDetector> ();
-		downmove = GameObject.Find ("Down(Clone)").gameObject.GetComponent<DownDetector> ();
-		leftmove = GameObject.Find ("Left(Clone)").gameObject.GetComponent<LeftDetector> ();
-		rightmove = GameObject.Find ("Right(Clone)").gameObject.GetComponent<RightDetector> ();
 
 	}
 	// Update is called once per frame
@@ -51,7 +42,7 @@ public class SnakeMovement : MonoBehaviour {
 		if (this.name=="Head(Clone)"){
 			if (counter<=0){
 				if (Input.GetKey ("up")) {
-					if (upmove.move==false){
+					if (transform.position.y<=ymax){
 
 						//lastposition=transform.position;
 						counter=1;
@@ -68,7 +59,7 @@ public class SnakeMovement : MonoBehaviour {
 					}
 				}
 				if (Input.GetKey ("down")) {
-					if (downmove.move==false){
+					if (transform.position.y>=ymin){
 						counter=1;
 
 						yspeed=moveunit;
@@ -81,7 +72,7 @@ public class SnakeMovement : MonoBehaviour {
 					}
 				}
 				if (Input.GetKey ("left")) {
-					if (leftmove.move==false){
+					if (transform.position.x>=xmin){
 						counter=1;
 					
 						xspeed=moveunit;
@@ -95,7 +86,7 @@ public class SnakeMovement : MonoBehaviour {
 					}
 				}
 				if (Input.GetKey ("right")) {
-					if (rightmove.move==false){
+					if (transform.position.x<=xmax){
 						counter=1;
 					
 						xspeed=moveunit;//sets speed to constant unit
