@@ -46,9 +46,13 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\DownDetector.cs" />
      <Compile Include="Assets\Follow.cs" />
+     <Compile Include="Assets\LeftDetector.cs" />
+     <Compile Include="Assets\RightDetector.cs" />
      <Compile Include="Assets\SnakeMovement.cs" />
      <Compile Include="Assets\StartSnake.cs" />
+     <Compile Include="Assets\UpDetector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
