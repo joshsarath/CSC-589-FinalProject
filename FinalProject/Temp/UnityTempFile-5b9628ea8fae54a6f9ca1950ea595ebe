@@ -36,7 +36,6 @@
 -define:ENABLE_PROFILER
 -define:UNITY_EDITOR
 -define:UNITY_EDITOR_OSX
-'Assets/Detector.cs'
 'Assets/Follow.cs'
 'Assets/SnakeMovement.cs'
 'Assets/StartSnake.cs'
