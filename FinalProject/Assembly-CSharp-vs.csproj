@@ -48,6 +48,8 @@
   <ItemGroup>
      <Compile Include="Assets\DownMove.cs" />
      <Compile Include="Assets\Follow.cs" />
+     <Compile Include="Assets\LeftMove.cs" />
+     <Compile Include="Assets\RightMove.cs" />
      <Compile Include="Assets\SnakeMovement.cs" />
      <Compile Include="Assets\StartSnake.cs" />
      <Compile Include="Assets\UpMove.cs" />

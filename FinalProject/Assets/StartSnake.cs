@@ -8,6 +8,7 @@ public class StartSnake : MonoBehaviour {
 	public int arena =20;
 	public int score=0;
 	public GUIStyle style;
+	public int foodleft;
 
 
 	// Use this for initialization
@@ -17,6 +18,9 @@ public class StartSnake : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (foodleft == 0) {
+			fertilize(arena);		
+		}
 	
 	}
 	void startsnake(int size){
@@ -36,15 +40,16 @@ public class StartSnake : MonoBehaviour {
 		GameObject left = Instantiate (wall, new Vector3 (-(arena/2), 0, 0), Quaternion.identity) as GameObject;
 		left.transform.localScale = new Vector3 (.5f,20,1);
 		for (int i=0; i<arena; i++) {
-			Vector3 position=new Vector3( Random.Range(-arena/2, arena/2), Random.Range(-arena/2, arena/2),0);
+			Vector3 position=new Vector3( Random.Range((-arena/2)+1, (arena/2)-1), Random.Range((-arena/2)+1, (arena/2)-1),0);
 			Instantiate (wall, position, Quaternion.identity);
 		}
 	}
 	void fertilize( int arena){
 		for (int i=0; i<arena/2; i++) {
-			Vector3 position=new Vector3( Random.Range(-arena/2, arena/2), Random.Range(-arena/2, arena/2),0);
+			Vector3 position=new Vector3( Random.Range((-arena/2)+1, (arena/2)-1), Random.Range((-arena/2)+1, (arena/2)-1),0);
 			Instantiate (food, position, Quaternion.identity);
 		}
+		foodleft = arena / 2;
 	}
 	
 	void OnGUI(){

@@ -2,7 +2,10 @@ fileFormatVersion: 2
 guid: 369c625244b5a462f94d700ec852ef42
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - snakeSegment: {instanceID: 0}
+  - game: {instanceID: 0}
+  - bufferpiece: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

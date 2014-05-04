@@ -10,10 +10,7 @@ public class SnakeMovement : MonoBehaviour {
 	public GameObject snakeSegment;
 	//private float counter;
 	//public float timedelay;
-	private float ymax;
-	private float ymin;
-	private float xmax;
-	private float xmin;
+
 	private int lastKey;/*directional memory for collisions 1 is side to side, 0 is up down*/
 	private float counter;
 	public float timeDelay=.5f;
@@ -21,19 +18,33 @@ public class SnakeMovement : MonoBehaviour {
 	public List<GameObject> list;
 	public bool followed=false;
 	public StartSnake game;
+	public GameObject bufferpiece;
 
 	// Use this for initialization
 	void Start () {
-		counter = 0;
-		ymax = 1000;
-		ymin = -1000;
-		xmax = 1000;
-		xmin = -1000;
-		list = new List<GameObject> ();
-		list.Add(GameObject.Find("Head(Clone)"));
-		if (this.name =="Head(Clone)"){
-			followed=true;	
+
+
+	
+		if (this.name =="Head(Clone)"){ 
+			counter = 0;
+			
+			list = new List<GameObject> ();//create list of snake part	
+			list.Add(GameObject.Find("Head(Clone)"));//add head to list
+			followed=true;	//set followed to true on head
+			GameObject buffer; 
+			buffer=Instantiate(bufferpiece, new Vector3(0, 0, -100), Quaternion.identity) as GameObject;
+			list.Add (buffer); //add a buffer object to separate head from first snake segment
+			followed=true;	//set followed to true on head
+			SnakeMovement bufferobject= buffer.gameObject.GetComponent<SnakeMovement>();
+			bufferobject.followed=true;
+			GameObject buffer2; 
+			buffer2=Instantiate(bufferpiece, new Vector3(0, 0, -100), Quaternion.identity) as GameObject;
+			list.Add (buffer2); //add a buffer object to separate head from first snake segment
+
+			SnakeMovement bufferobject2= buffer.gameObject.GetComponent<SnakeMovement>();
+			bufferobject2.followed=true;
 		}
+
 
 
 	}
@@ -74,7 +85,8 @@ public class SnakeMovement : MonoBehaviour {
 					}
 				}
 				if (Input.GetKey ("left")) {
-					if (transform.position.x>=xmin){
+					LeftMove movement= GameObject.Find ("Left").gameObject.GetComponent<LeftMove>();
+					if (movement.move==false){
 						counter=1;
 					
 						xspeed=moveunit;
@@ -88,7 +100,8 @@ public class SnakeMovement : MonoBehaviour {
 					}
 				}
 				if (Input.GetKey ("right")) {
-					if (transform.position.x<=xmax){
+					RightMove movement= GameObject.Find ("Right").gameObject.GetComponent<RightMove>();
+					if (movement.move==false){
 						counter=1;
 					
 						xspeed=moveunit;//sets speed to constant unit
@@ -109,45 +122,39 @@ public class SnakeMovement : MonoBehaviour {
 		}
 	}
 	void OnTriggerEnter(Collider other){
+		if (this.name=="Head(Clone)"){
+			if (other.name == "Food(Clone)") {
 
-		if (other.name == "Food(Clone)") {
-
-			Destroy(other.gameObject);
-			GameObject instance;
-			instance=Instantiate(snakeSegment, new Vector3(0, 0, -100), Quaternion.identity) as GameObject;
-			//Instantiate(snakeSegment);
-			//GameObject instance= GameObject.Find ("Segment(Clone)");
-			list.Add(instance);
-			game= GameObject.Find ("Main Camera").gameObject.GetComponent<StartSnake> ();
-			game.score+=1;
-				
-			//transform.position=new Vector3((other.transform.position.x-.5f), transform.position.y,0);  
-			//Destroy (gameObject);
-		}
-		if (other.name=="Segment(Clone)"){
-			//Destroy (other.gameObject);
-			//Destroy (this.gameObject);
-		}
-		if (other.name == "Wall(Clone)") {
-			/* stop movememt entirely 
-			 * or end game if too difficult
-			 */
-			if (lastKey==0){
-				ymax=transform.position.y;
-				ymin=transform.position.y;
+				Destroy(other.gameObject);
+				GameObject instance;
+				instance=Instantiate(snakeSegment, new Vector3(0, 0, -100), Quaternion.identity) as GameObject;
+				//Instantiate(snakeSegment);
+				//GameObject instance= GameObject.Find ("Segment(Clone)");
+				list.Add(instance);
+				game= GameObject.Find ("Main Camera").gameObject.GetComponent<StartSnake> ();
+				game.score+=1;
+				game.foodleft-=1;
+				//Debug.Log (game.foodleft);
+					
+				//transform.position=new Vector3((other.transform.position.x-.5f), transform.position.y,0);  
+				//Destroy (gameObject);
 			}
-			if (lastKey==1){
-				xmax=transform.position.x;
-				xmin=transform.position.x;
+			if (other.name=="Segment(Clone)"){
+				//Destroy (other.gameObject);
+				Destroy (this.gameObject);
+				//game.score-=1;
+				Debug.Log ("hit");
+			}
+			if (other.name == "Wall(Clone)") {
+				/* stop movememt entirely 
+				 * or end game if too difficult
+				 */
+
+
 			}
 		}
 	}
-	void OnTriggerExit(){
-		ymax = 1000;
-		ymin=-1000;
-		xmax = 1000;
-		xmin = -1000;
-	}
+
 
 	void follow(){
 		/*int length = GameObject.FindGameObjectsWithTag ("Snake").Length;
