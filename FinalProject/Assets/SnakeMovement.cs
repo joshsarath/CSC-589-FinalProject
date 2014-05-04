@@ -34,7 +34,7 @@ public class SnakeMovement : MonoBehaviour {
 		if (this.name =="Head(Clone)"){
 			followed=true;	
 		}
-		game= GameObject.Find ("Main Camera").gameObject.GetComponent<StartSnake> ();
+
 
 	}
 	// Update is called once per frame
@@ -42,7 +42,8 @@ public class SnakeMovement : MonoBehaviour {
 		if (this.name=="Head(Clone)"){
 			if (counter<=0){
 				if (Input.GetKey ("up")) {
-					if (transform.position.y<=ymax){
+					UpMove movement= GameObject.Find ("Up").gameObject.GetComponent<UpMove>();
+					if (movement.move==false){
 
 						//lastposition=transform.position;
 						counter=1;
@@ -59,7 +60,8 @@ public class SnakeMovement : MonoBehaviour {
 					}
 				}
 				if (Input.GetKey ("down")) {
-					if (transform.position.y>=ymin){
+					DownMove movement= GameObject.Find ("Down").gameObject.GetComponent<DownMove>();
+					if (movement.move==false){
 						counter=1;
 
 						yspeed=moveunit;
@@ -109,13 +111,14 @@ public class SnakeMovement : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 
 		if (other.name == "Food(Clone)") {
-			//Debug.Log ("poop");
+
 			Destroy(other.gameObject);
 			GameObject instance;
-			instance=Instantiate(snakeSegment) as GameObject;
+			instance=Instantiate(snakeSegment, new Vector3(0, 0, -100), Quaternion.identity) as GameObject;
 			//Instantiate(snakeSegment);
 			//GameObject instance= GameObject.Find ("Segment(Clone)");
 			list.Add(instance);
+			game= GameObject.Find ("Main Camera").gameObject.GetComponent<StartSnake> ();
 			game.score+=1;
 				
 			//transform.position=new Vector3((other.transform.position.x-.5f), transform.position.y,0);  
@@ -164,6 +167,7 @@ public class SnakeMovement : MonoBehaviour {
 			SnakeMovement tofollow=(SnakeMovement)list[i-1].GetComponent<SnakeMovement>();
 			follow.transform.position=tofollow.lastposition;
 		}*/
+	
 		int i = 1;
 		SnakeMovement piece;
 		while (i<list.Count){
@@ -172,7 +176,7 @@ public class SnakeMovement : MonoBehaviour {
 			piece.lastposition = piece.transform.position;
 
 			//piece=null;
-			Debug.Log(i);
+			//Debug.Log(i);
 			i++;
 		}
 	}
